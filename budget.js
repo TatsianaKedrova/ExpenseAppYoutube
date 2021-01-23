@@ -21,11 +21,11 @@ const expenseTitle = document.getElementById("expense-title-input");
 const expenseAmount = document.getElementById("expense-amount-input");
 
 
-const addIncome = document.querySelector(".add-expense");
-const incomeTitle = document.getElementById("expense-title-input");
-const incomeAmount = document.getElementById("expense-amount-input");
+const addIncome = document.querySelector(".add-income");
+const incomeTitle = document.getElementById("income-title-input");
+const incomeAmount = document.getElementById("income-amount-input");
 
-//VARIABLES
+//VARIABLESadd-income
 let ENTRY_LIST = [];
 let balance = 0, income = 0, outcome = 0;
 
@@ -51,6 +51,32 @@ allBtn.addEventListener('click', function(){
     active( allBtn);
     inactive( [expenseBtn, incomeBtn]);
 });
+
+addExpense.addEventListener('click', function() {
+    //IF ONE OF THE INPUTS IS EMPTY => EXIT
+    if(!expenseTitle.value || !expenseAmount.value) return;
+        //SAVE THE ENTRY TO ENTRY LIST
+        let expense = {
+            type: 'expense',
+            title: expenseTitle.value,
+            amount: expenseAmount.value
+        };
+        ENTRY_LIST.push(expense);
+    
+});
+addIncome.addEventListener('click', function() {
+    //IF ONE OF THE INPUTS IS EMPTY => EXIT
+    if(!incomeTitle.value || !incomeAmount.value) return;
+        //SAVE THE ENTRY TO ENTRY LIST
+        let income = {
+            type: 'income',
+            title: incomeTitle.value,
+            amount: incomeAmount.value
+        };
+        ENTRY_LIST.push(income);
+    
+});
+
 //HELPERS(FUNCTIONS)
 
 function show(element) {
@@ -70,7 +96,6 @@ function active(element) {
 function inactive(elements) {
    elements.forEach(element => {
        element.classList.remove("active");
-   });
-        
+   });     
 }
 
