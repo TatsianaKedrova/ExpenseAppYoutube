@@ -62,6 +62,9 @@ addExpense.addEventListener('click', function() {
             amount: expenseAmount.value
         };
         ENTRY_LIST.push(expense);
+
+        updateUI();
+        clearInput([expenseTitle.value, expenseAmount.value]);
     
 });
 addIncome.addEventListener('click', function() {
@@ -74,10 +77,65 @@ addIncome.addEventListener('click', function() {
             amount: incomeAmount.value
         };
         ENTRY_LIST.push(income);
-    
+
+        updateUI();
+        clearInput([incomeTitle.value, incomeAmount.value]);
+
 });
 
 //HELPERS(FUNCTIONS)
+function updateUI() {
+    income = calculateTotal("income", ENTRY_LIST);
+    outcome = calculateTotal("expense", ENTRY_LIST);
+    balance = calculateBalance(income,outcome);
+
+    //UPDATE UI
+    clearElement( [expenseList, incomeList, allList] );
+
+    //DETERMINE SIGN ( + or - ) OF BALANCE
+    let sign = (income >= outcome) ? "$" : "-$";
+
+    ENTRY_LIST.forEach( entry => {
+        if( entry.type === "expense" ) {
+            showEntry(expenseList, entry.type, entry.title, entry.amount, index);
+        }else if( entry.type === "income" ) {
+            showEntry(incomeList, entry.type, entry.title, entry.amount, index);
+            } 
+            showEntry(allList, entry.type, entry.title, entry.amount, index);
+    });
+}
+
+function showEntry(list, type, title, amount, id) {
+    
+}
+
+function clearElement(elements) {
+    elements.forEach( element => {
+        element.innerHTML = "";
+    });
+}
+
+function calculateTotal(type, list) {
+    let sum = 0;
+
+    list.forEach(entry => {
+        if(entry.type === type) {
+            sum += entry.amount;
+        }
+    });
+    return sum;
+}
+
+function calculateBalance(income, outcome) {
+    return income - outcome;
+}
+
+function clearInput(inputs) {
+    inputs.forEach(input => {
+        input.value = '';
+    });
+}
+
 
 function show(element) {
     element.classList.remove("hide");
