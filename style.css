@@ -419,3 +419,14 @@ input[type=number] {
     background-size: 20px 20px;
     background-repeat: no-repeat;
 }
+
+.budget-dashboard #all ul.list li #delete{
+    position: absolute;
+    width:20px;
+    height: 20px;
+    right: 20px;
+    cursor: pointer;
+    background-image: url('./trash.png');
+    background-size: 20px 20px;
+    background-repeat: no-repeat;
+}
