@@ -89,19 +89,24 @@ function updateUI() {
     outcome = calculateTotal("expense", ENTRY_LIST);
     balance = calculateBalance(income,outcome);
 
-    //UPDATE UI
-    clearElement( [expenseList, incomeList, allList] );
-
     //DETERMINE SIGN ( + or - ) OF BALANCE
     let sign = (income >= outcome) ? "$" : "-$";
 
+    //UPDATE UI
+    // balanceEl.innerHTML = `<small>${sign}</small>${balance}`;
+    // incomeEl.innerHTML = `<small>$</small>${income}`;
+    // expenseEl.innerHTML = `<small>$</small>${outcome}`;
+
+    clearElement( [expenseList, incomeList, allList] );
+
+
     ENTRY_LIST.forEach( (entry, index) => {
-        if( entry.type === "expense" ) {
+        if( entry.type == "expense" ) {
             showEntry(expenseList, entry.type, entry.title, entry.amount, index);
-        }else if( entry.type === "income" ) {
+        }else if( entry.type == "income" ) {
             showEntry(incomeList, entry.type, entry.title, entry.amount, index);
-            } 
-            showEntry(allList, entry.type, entry.title, entry.amount, index);
+        }
+            showEntry(allList, entry.type, entry.title, entry.amount, index);    
     });
 }
 
