@@ -59,7 +59,7 @@ addExpense.addEventListener('click', function() {
         let expense = {
             type: 'expense',
             title: expenseTitle.value,
-            amount: expenseAmount.value
+            amount: parseFloat(expenseAmount.value)
         };
         ENTRY_LIST.push(expense);
 
@@ -74,7 +74,7 @@ addIncome.addEventListener('click', function() {
         let income = {
             type: 'income',
             title: incomeTitle.value,
-            amount: incomeAmount.value
+            amount: parseFloat(incomeAmount.value)
         };
         ENTRY_LIST.push(income);
 
@@ -93,20 +93,21 @@ function updateUI() {
     let sign = (income >= outcome) ? "$" : "-$";
 
     //UPDATE UI
-    // balanceEl.innerHTML = `<small>${sign}</small>${balance}`;
-    // incomeEl.innerHTML = `<small>$</small>${income}`;
-    // expenseEl.innerHTML = `<small>$</small>${outcome}`;
+    balanceEl.innerHTML = `<small>${sign}</small>${balance}`;
+    incomeTotalEl.innerHTML = `<small>$</small>${income}`;
+    outcomeTotalEl.innerHTML = `<small>$</small>${outcome}`;
 
     clearElement( [expenseList, incomeList, allList] );
 
 
     ENTRY_LIST.forEach( (entry, index) => {
-        if( entry.type == "expense" ) {
+        if( entry.type === "expense" ) {
             showEntry(expenseList, entry.type, entry.title, entry.amount, index);
-        }else if( entry.type == "income" ) {
+        }else if( entry.type === "income" ) {
             showEntry(incomeList, entry.type, entry.title, entry.amount, index);
         }
-            showEntry(allList, entry.type, entry.title, entry.amount, index);    
+        showEntry(allList, entry.type, entry.title, entry.amount, index); 
+       
     });
 }
 
@@ -135,12 +136,13 @@ function calculateTotal(type, list) {
         if(entry.type === type) {
             sum += entry.amount;
         }
+        
     });
     return sum;
 }
 
 function calculateBalance(income, outcome) {
-    return income - outcome;
+    return Math.abs(income - outcome);
 }
 
 function clearInput(inputs) {
@@ -169,4 +171,5 @@ function inactive(elements) {
        element.classList.remove("active");
    });     
 }
+
 
